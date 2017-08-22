@@ -54,12 +54,10 @@ class MainActivity : AppCompatActivity() {
         Log.i(this::class.simpleName, "[1] Async...")
         BaseRequest(targetUrl).retrofit().create(TestService::class.java).test().enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if (response.isSuccessful()) {
-                    val r = response.raw()
-                    val resultText = "Response:\n Code: ${r.code()}\n Message: ${r.message()}\n"
-                    showResponse(resultText)
-                    Log.i(this::class.simpleName, "post submitted to API." + response.body().toString())
-                }
+                val r = response.raw()
+                val resultText = "Response:\n Code: ${r.code()}\n Message: ${r.message()}\n Raw: ${response.raw()}"
+                showResponse(resultText)
+                Log.i(this::class.simpleName, "post submitted to API." + response.body().toString())
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
