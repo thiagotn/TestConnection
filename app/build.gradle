@@ -13,11 +13,20 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        prod {
+            buildConfigField 'String', 'SALES_GATEWAY_ENDPOINT', '"https://sales-gateway.uol.com.br/"'
+        }
+        dev {
+            buildConfigField 'String', 'SALES_GATEWAY_ENDPOINT', '"http://sales-gateway-fe-service.sales-gateway.svc.cluster.production.kubernetes.intranet/"'
         }
     }
 }

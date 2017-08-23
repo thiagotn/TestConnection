@@ -34,7 +34,8 @@
             android:layout_marginRight="16dp"
             android:inputType="textUri"
             android:padding="16dp"
-            android:hint="https://google.com"
+            android:hint="http://google.com"
+            android:text="http://google.com"
             android:textAllCaps="false"/>
 
         <Button

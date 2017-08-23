@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
 
         Log.i(this::class.simpleName, "[1] Async...")
-        BaseRequest(targetUrl).retrofit().create(TestService::class.java).test().enqueue(object : Callback<Void> {
+        val https = targetUrl.startsWith("https", true)
+
+        BaseRequest(targetUrl, https).retrofit().create(TestService::class.java).test().enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 val r = response.raw()
                 val resultText = "Response:\n Code: ${r.code()}\n Message: ${r.message()}\n Raw: ${response.raw()}"

@@ -1,9 +1,7 @@
 package br.com.uol.produtos.testconnection.server
 
-import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
-import okhttp3.TlsVersion
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by tnogueira on 18/08/17.
  */
-class BaseRequest(val baseUrl: String) {
+class BaseRequest(val baseUrl: String, val https: Boolean = true) {
 
     private fun getHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
@@ -25,7 +23,8 @@ class BaseRequest(val baseUrl: String) {
     }
 
     private fun buildTLSConnSpecs(): ConnectionSpec {
-        return ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).build()
+        if (https) return ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).build()
+        return ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT).build()
     }
 
     private fun getLoggingInterceptor(): HttpLoggingInterceptor {
